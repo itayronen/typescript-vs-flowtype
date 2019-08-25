@@ -905,9 +905,27 @@ type TotallyMutableFoo = Mutable<Foo>
 [Official Documentation](https://www.typescriptlang.org/docs/handbook/enums.html)
 > Enums allow us to define a set of named constants. Using enums can make it easier to document intent, or create a set of distinct cases. TypeScript provides both numeric and string-based enums.
 
-Enums are more maintainable compared to literal types. You can easily find usages, and rename enum values.
+Notice that enums emits extra code, meaning its not only a type annotation feature.
+
+Enums values help with maintainance, you can easily find usages, and rename enum values (compared to string literal types).
 
 Enum support number as well as string values (also mixure though probably not useful).
+
+You can get in runtime, an enum value from its name, and its name from the value:
+```ts
+enum MyEnum { Foo, Bar }
+
+let nameOfFoo = MyEnum[MyEnum.Foo]; // "Foo"
+let valueOfFoo = MyEnum["Foo"]; // 0
+```
+
+Enums allow you to get the keys, value, and iterate over them:
+```ts
+enum MyEnum { Foo, Bar }
+
+let keys = Object.keys(MyEnum); // ["Foo", "Bar"]
+let values = Object.values(MyEnum); // [0, 1]
+```
 
 Control flow is cleverily respected:
 - Conditions checking an enum variable's value, will narrow the possible values in the following code branches.
@@ -916,15 +934,15 @@ Control flow is cleverily respected:
 
 Example:
 ```ts
-enum E {
+enum MyEnum {
     Foo,
     Bar,
 }
 
-function f(x: E) {
-    if (x !== E.Foo || x !== E.Bar) {
-        //             ~~~~~~~~~~~
-        // Error! This condition will always return 'true' since the types 'E.Foo' and 'E.Bar' have no overlap.
+function f(x: MyEnum) {
+    if (x !== MyEnum.Foo || x !== MyEnum.Bar) {
+        //                  ~~~~~~~~~~~~~~~~
+        // Error! This condition will always return 'true' since the types 'MyEnum.Foo' and 'MyEnum.Bar' have no overlap.
     }
 }
 ```
