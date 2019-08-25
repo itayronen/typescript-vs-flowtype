@@ -919,7 +919,7 @@ let nameOfFoo = MyEnum[MyEnum.Foo]; // "Foo"
 let valueOfFoo = MyEnum["Foo"]; // 0
 ```
 
-Enums allow you to get the keys, value, and iterate over them:
+Enums allow you to get the keys or values, and iterate over them:
 ```ts
 enum MyEnum { Foo, Bar }
 
