@@ -919,12 +919,12 @@ let nameOfFoo = MyEnum[MyEnum.Foo]; // "Foo"
 let valueOfFoo = MyEnum["Foo"]; // 0
 ```
 
-Enums allow you to get the keys or values, and iterate over them:
+Enums allow you to get the keys or values, and iterate over them (this example assumes there are only number values):
 ```ts
 enum MyEnum { Foo, Bar }
 
-let keys = Object.keys(MyEnum); // ["Foo", "Bar"]
-let values = Object.values(MyEnum); // [0, 1]
+const keys = Object.keys(MyEnum).filter(k => typeof MyEnum[k as any] === "number"); // ["Foo", "Bar"]
+const values = keys.map(k => MyEnum[k as any]); // [0, 1]
 ```
 
 Control flow is cleverily respected:
